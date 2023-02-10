@@ -21,5 +21,34 @@ class Solution {
             }
         }
         return jumps;
+        
+        // approch 2 using queue
+        int n = nums.length;
+        boolean vis[] = new boolean[n];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(0);
+        vis[0] = true;
+        int jumps = 0;
+
+        while(q.size() > 0){
+            int size = q.size();
+            for(int i = 0; i < size; i++){
+                int idx = q.remove();
+                if(idx == n-1) return jumps;
+                for(int jump=1; jump <= nums[idx]; jump++){
+                    
+                    if(idx + jump >= n){
+                        break;
+                    }
+
+                    if(vis[idx + jump] == false){
+                        q.add(idx+jump);
+                        vis[idx + jump] = true;
+                    }
+                }
+            }
+            jumps++;
+        }
+        return -1;
     }
 }
